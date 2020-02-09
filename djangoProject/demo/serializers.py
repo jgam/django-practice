@@ -1,8 +1,22 @@
 from rest_framework import serializers
-from .models import Car
+from .models import Car, CarNumber, Wheels
 
+
+class CarNumberSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = CarNumber
+        fields = ['id', 'carnumber','carregistrationnumber']
+
+class WheelSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Wheels
+        fields = ['id','name']
 
 class CarSerializer(serializers.ModelSerializer):
+    number = CarNumberSerializer(many=False)# finds CarNumberSerializer class and populates it
+    wheels = WheelSerializer(many=True)
     class Meta:
         model = Car
-        fields = ['name'] # 여기에 model field를 추가해주면 된다. 겁나쉽네;
+        fields = ['id', 'name', 'description','price','number','wheels']
+
+

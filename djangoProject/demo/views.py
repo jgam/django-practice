@@ -4,6 +4,7 @@ from django.views import View
 from .models import Car
 from rest_framework import viewsets
 from .serializers import CarSerializer
+from rest_framework.authentication import TokenAuthentication
 
 # Create your views here.
 """
@@ -29,3 +30,4 @@ def first(request):
 class CarViewSet(viewsets.ModelViewSet):
     serializer_class = CarSerializer
     queryset = Car.objects.all()
+    authentication_classes = (TokenAuthentication,)
